@@ -1,11 +1,10 @@
-# Introduction
-In this guide we will discuss breifly on how to add Razorpay as mode to accept money from users on a React based website. The project stack discussed here is only in JavaScript. Before we proceed, I highly encourage you to watch these two video to understand how online payment work before you proceed.
+In this guide, we will briefly discuss how to add Razorpay as a mode to accept money from users on a React based website. The project stack discussed here is only in JavaScript. Before we proceed, I highly encourage you to watch these two videos to understand how online payment works?
 
 - [Demystifying Online Payments - What happens when you make an online purchase and what can go wrong?](https://youtu.be/vJWhWRYrqvw)
 - [How online payment works](https://youtu.be/yN9frfmufbI)
 
 # Basic requirement
-Our goal here is clear and simple, make the payment button of the website functional to accept money from end user. There are few quick checks that has to be taken care before you proceed:
+Our goal here is clear and simple, make the payment button of the website functional to accept money from the end-user. Few quick checks have to be taken care of before you proceed:
 
 - An activated account on [RazorPay](https://dashboard.razorpay.com/signup)
 - Knowledge of JavaScript and React
@@ -14,11 +13,11 @@ Our goal here is clear and simple, make the payment button of the website functi
 Once you login to the dashboard, make sure you are on **Test mode** and NOT in **Live mode**
 ![Test Mode](https://cdn.hashnode.com/res/hashnode/image/upload/v1611672037967/GC0m5S7nS.png)
 
-Next step is to generate the test API key(s). Navigate to **Settings** option onto the left of the screen and click on **Generate API keys** have the generated values saved on to a side that we will use in future.
+The next step is to generate the test API key(s). Navigate to the **Settings** option onto the left of the screen and click on **Generate API keys** have the generated values saved onto a side that we will use in the future.
 ![Test API Keys](https://cdn.hashnode.com/res/hashnode/image/upload/v1611725678270/3u0GG-Sdo.png)
 
 ## Preparing Frontend
-Our react app output is showcasing course cards, whose fundamental action is to trigger a method on *node.js* backend to activate the payment gateway and collect money from user's payment source. 
+Our react app output is showcasing course cards, whose fundamental action is to trigger a method on *node.js* backend to activate the payment gateway and collect money from the user's payment source. 
 ![Final output](https://cdn.hashnode.com/res/hashnode/image/upload/v1611673129007/yiYuV5a4J.png)
 
 Create boiler plate react app code
@@ -59,7 +58,7 @@ const CourseCard = ({
   );
 };
 ```
-Now import the component onto home page and pass on the necessary information. (Note: Keeping the tutorial constraint in mind, we are not discussing the CSS here)
+Now import the component onto the home page and pass on the necessary information. (Note: Keeping the tutorial constraint in mind, we are not discussing the CSS here)
 
 ```
 const App = () => {
@@ -81,7 +80,7 @@ const App = () => {
 In similar fashion, you can add one or more cards onto home page. 
 
 ## Preparing Backend
-We stand at a point now where the **Buy Now** button is just a dummy button but doesn't invoke anything related to razorpay. Now we have to prepare the backend boiler plate code and make a route on visiting the payment gateway logic kicks in.
+We stand at a point now where the **Buy Now** button is just a dummy button but doesn't invoke anything related to Razorpay. Now we have to prepare the backend boilerplate code and make a route on visiting the payment gateway logic kicks in.
 
 - Create a new folder named **lco-payment-backend** and open folder in terminal
 - Run ```npm init -y``` and open onto VSCode
@@ -120,7 +119,7 @@ app.get("/logo.png", (req, res) => {
 });
 ```
 ### Crafting the Payment endpoint
-Information sent from frontend is generally handled in POST request, our job in backend is generate an Order ID and send it back in JSON format to user to proceed to success or failure screen based on your logic.
+Information sent from the frontend is generally handled in POST request, our job in the backend is to generate an Order ID and send it back in JSON format to the user to proceed to success or failure screen based on your logic.
 
 - Gather the options(amount, currency)
 ```
@@ -135,7 +134,7 @@ Information sent from frontend is generally handled in POST request, our job in 
     payment_capture,
   };
 ```
-Always keep the payment information like price and currency handled only on backend based on the usage from front end user. Never capture amount form frontend as there are high chances they will be manipulated by oversmart people. Amount passed has to be multipled by 100 for Indian rupees. The receipt ID is generated on fly with help of **shortid**
+Always keep the payment information as price and currency handled only on the backend based on the usage from frontend users. Never capture the amount from frontend as there are high chances they will be manipulated by over-smart people. Amount passed has to be multiplied by 100 for Indian rupees. The receipt ID is generated on the fly with help of **shortid**
 
 - Create an order with the **options** object and wait for a valid response
 
@@ -167,7 +166,7 @@ app.post("/razorpay", async (req, res) => {
 ```
 
 ### Are we ready?
-No, we still need to cook the razorpay sdk onto the react app. The approach here is simple, we are provided with a checkout script from razorpay team what should be loaded on opening the web page. Making use of react hook **useEffect** we load the script
+No, we still need to cook the Razorpay sdk onto the react app. The approach here is simple, we are provided with a checkout script from razorpay team that should be loaded on opening the web page. Making use of react hook **useEffect** we load the script
 
 ```
 const loadScript = (src) => {
@@ -189,7 +188,7 @@ useEffect(() => {
 });
 ```
 
-Loading of this script will open the doors to create that fancy dialog of razorpay that comes when you click on **Buy now** button. Again a step back, we are looking at a fundamental object from the Razorpay object as
+Loading of this script will open the doors to create that fancy dialog of Razorpay that comes when you click on **Buy now** button. Again a step back, we are looking at a fundamental object from the Razorpay object as
 
 ```
 const paymentObject = new window.Razorpay(options);
@@ -244,14 +243,13 @@ Export this entire method as a functionality to be called on clicking the Buy no
 # Output
 ![Final Output](https://cdn.hashnode.com/res/hashnode/image/upload/v1611726890276/BuNdPmiGR.gif)
 
-From the demo video as you can see above, we have obtained some information in an alert box, and the same will be available in the razorpay dashboard. Captured money reflects onto your razorpay dashboard
-
+From the demo video as you can see above, we have obtained some information in an alert box, and the same will be available in the razorpay dashboard.Captured money reflects onto your razorpay dashboard
 ![Captured money](https://cdn.hashnode.com/res/hashnode/image/upload/v1611685093736/VOhiLEa7-.png)
 
 ## Points to remember
-- The payment gateway amount is never decided on front-end that is the reason in the output we get to see the hardcoded 499 as amount taken from backend
-- In real time apps, you have a separate API that serves this information(course amount or product amount) both to frontend and backend from single source of truth
-- In this demo, we have seen only the test mode, the actual use when you move to LIVE mode the only change in code is the ```API keys``` generated from settings of your razorpay account
-- Captured money has to be settled by owner from razorpay dashboard to their registered bank account
-- If you are following this procedure I highly encourage you to spend atleast 1-2 hours on Razorpay dashboard itself to understand how things are working behind the scenes
-- Personalization of payment gateway is a available on dashboard, we can toggle with things like Theme color, brand logo, etc from settings
+- The payment gateway amount is never decided on the front-end that is the reason in the output we get to see the hardcoded 499 as the amount taken from the backend
+- In real-time apps, you have a separate API that serves this information(course amount or product amount) both to the frontend and backend from a single source of truth
+- In this demo, we have seen only the test mode, the actual use when you move to LIVE mode the only change in code is the ```API keys``` generated from settings of your Razorpay account
+- Captured money has to be settled by the owner from the Razorpay dashboard to their registered bank account
+- If you are following this procedure I highly encourage you to spend at least 1-2 hours on the Razorpay dashboard itself to understand how things are working behind the scenes
+- Personalization of payment gateway is available on the dashboard, we can toggle with things like Theme color, brand logo, etc from settings
