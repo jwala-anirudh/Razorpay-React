@@ -1,0 +1,94 @@
+body {
+  /* Base configuration */
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+
+  /* Poppins font */
+  font-family: "Poppins", sans-serif;
+
+  min-height: 100vh;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  padding: 0;
+  margin: 0;
+}
+
+p {
+  color: #808080;
+  font-size: 0.8rem;
+}
+
+.card-list {
+  display: flex;
+  flex-direction: row;
+}
+
+.card {
+  width: 264px;
+  height: auto;
+  border-radius: 8px;
+  box-shadow: 0 3rem 6rem rgba(0, 0, 0, 0.1);
+  cursor: pointer;
+  transition: 0.2s;
+  margin: 12px;
+}
+
+.card:hover {
+  transform: translateY(-0.1%);
+  box-shadow: 0 3rem 7rem rgba(0, 0, 0, 0.2);
+}
+
+.card-content {
+  padding-left: 8px;
+}
+
+.card-content h4 {
+  font-weight: 400;
+}
+
+.card-header {
+  padding-top: 8px;
+}
+
+.card img {
+  width: 264px;
+  height: 148.5px;
+  border-top-left-radius: 8px;
+  border-top-right-radius: 8px;
+  object-fit: cover;
+}
+
+.course-price {
+  color: #808080;
+  font-size: 0.8rem;
+  text-decoration: line-through;
+  font-weight: 100;
+}
+
+.course-discount-percentage {
+  color: #7e2dce;
+  font-weight: 200;
+}
+
+.course-payment-button {
+  font-weight: 600;
+  background-color: #7e2dce;
+  border-color: white;
+  color: white;
+  height: 100%;
+  width: 90%;
+  font-size: 0.75rem;
+  padding: 8px 12px;
+  border-radius: 20px;
+  border-width: 0px;
+  appearance: none;
+  margin: 12px;
+  cursor: pointer;
+}
